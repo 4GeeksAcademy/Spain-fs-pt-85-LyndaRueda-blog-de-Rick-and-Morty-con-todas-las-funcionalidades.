@@ -7,7 +7,6 @@ const CharacterDetail = ({ type }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Función para obtener la URL de la API según el tipo
     const getApiUrl = (type, id) => {
         switch (type) {
             case "characters":

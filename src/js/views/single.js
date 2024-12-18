@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 const Single = ({ type }) => {
-    const { id } = useParams(); // Captura el parámetro dinámico de la URL
+    const { id } = useParams();
     const [item, setItem] = useState(null);
     const { actions } = useContext(Context);
 

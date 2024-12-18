@@ -1,13 +1,12 @@
 const getState = ({ getStore, getActions, setStore }) => {
     return {
         store: {
-            favorites: JSON.parse(localStorage.getItem("favorites")) || [], // Recuperar favoritos
-            characters: [], // Lista de personajes
-            locations: [],  // Lista de ubicaciones
-            episodes: [],   // Lista de episodios
+            favorites: JSON.parse(localStorage.getItem("favorites")) || [],
+            characters: [],
+            locations: [],
+            episodes: [],
         },
         actions: {
-            // Cargar personajes desde la API
             loadEntities: async () => {
                 try {
                     const response = await fetch("https://rickandmortyapi.com/api/character");
@@ -19,7 +18,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
-            // Cargar ubicaciones desde la API
             loadLocations: async () => {
                 try {
                     const response = await fetch("https://rickandmortyapi.com/api/location");
@@ -31,7 +29,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
-            // Cargar episodios desde la API
             loadEpisodes: async () => {
                 try {
                     const response = await fetch("https://rickandmortyapi.com/api/episode");
@@ -43,7 +40,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
-            // Agregar un elemento a favoritos (sin duplicados)
             addToFavorites: (entity) => {
                 const store = getStore();
                 const alreadyExists = store.favorites.some(
@@ -60,7 +56,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
-            // Eliminar un elemento de favoritos
             removeFromFavorites: (id) => {
                 const store = getStore();
                 const updatedFavorites = store.favorites.filter(fav => fav.id !== id);

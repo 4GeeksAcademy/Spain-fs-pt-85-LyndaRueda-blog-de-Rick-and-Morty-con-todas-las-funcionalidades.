@@ -6,9 +6,9 @@ const ScrollToTop = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [pathname]); // Se activa cuando cambia la ruta
+    }, [pathname]);
 
-    return null; // No renderiza nada
+    return null;
 };
 
 export default ScrollToTop;

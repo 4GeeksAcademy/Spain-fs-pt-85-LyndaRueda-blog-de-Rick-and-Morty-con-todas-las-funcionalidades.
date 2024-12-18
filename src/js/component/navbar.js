@@ -9,7 +9,6 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
 
-    // Maneja la búsqueda con autocompletar
     const handleSearch = (e) => {
         const query = e.target.value;
         setSearch(query);
@@ -24,14 +23,12 @@ const Navbar = () => {
         }
     };
 
-    // Redirige al detalle del personaje seleccionado
     const handleSelectCharacter = (id) => {
         navigate(`/characters/${id}`);
         setSearch("");
         setFilteredResults([]);
     };
 
-    // Despliega o cierra el dropdown de favoritos
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
@@ -39,7 +36,6 @@ const Navbar = () => {
     return (
         <nav className="navbar navbar-dark bg-dark p-3">
             <div className="container d-flex justify-content-between align-items-center">
-                {/* Logo */}
                 <a className="navbar-brand" href="/">
                     <img
                         src="https://cdn-images.dzcdn.net/images/cover/38a217cfce1bfafa00bec80dcbc5d8cb/500x500.jpg"
@@ -49,7 +45,6 @@ const Navbar = () => {
                     />
                 </a>
 
-                {/* Barra de búsqueda */}
                 <div className="position-relative w-50">
                     <input
                         type="text"
@@ -83,7 +78,6 @@ const Navbar = () => {
                     )}
                 </div>
 
-                {/* Dropdown de favoritos */}
                 <div className="dropdown ml-3">
                     <button
                         className="btn btn-warning dropdown-toggle"
@@ -99,7 +93,7 @@ const Navbar = () => {
                             className="dropdown-menu dropdown-menu-end show mt-2"
                             style={{ right: 0, left: "auto" }}
                         >
-                            {/* Verifica si hay favoritos */}
+
                             {store.favorites.length > 0 ? (
                                 store.favorites.map((item, index) => (
                                     <li

@@ -4,24 +4,19 @@ import { Link } from "react-router-dom";
 
 const Card = ({ entity, type }) => {
     const { store, actions } = useContext(Context);
-
-    // Verificar si ya está en favoritos
     const isFavorite = store.favorites.some(fav => fav.id === entity.id && fav.type === type);
-
-    // Extraer los números de episodio de las URLs
     const formatEpisodes = (episodes) => {
         if (Array.isArray(episodes)) {
             return episodes
-                .map(url => url.split("/").pop()) // Extraer el último segmento (número del episodio)
-                .slice(0, 5) // Mostrar solo los primeros 5 episodios
-                .join(", "); // Unir con comas
+                .map(url => url.split("/").pop()) 
+                .slice(0, 5)
+                .join(", ");
         }
         return "N/A";
     };
 
     return (
         <div className="card m-2 shadow-sm" style={{ width: "18rem" }}>
-            {/* Imagen */}
             {entity.image && (
                 <img
                     src={entity.image}
@@ -37,20 +32,17 @@ const Card = ({ entity, type }) => {
                 {entity.species && <p className="card-text"><strong>Species:</strong> {entity.species}</p>}
                 {entity.type && <p className="card-text"><strong>Type:</strong> {entity.type}</p>}
                 {entity.dimension && <p className="card-text"><strong>Dimension:</strong> {entity.dimension}</p>}
-                
-                {/* Episodios: Mostrar solo números */}
+            
                 {entity.episode && (
                     <p className="card-text">
                         <strong>Episodes:</strong> {formatEpisodes(entity.episode)}
                     </p>
                 )}
 
-                {/* Learn More */}
                 <Link to={`/${type}/${entity.id}`} className="btn btn-primary btn-sm me-2">
                     Learn More
                 </Link>
 
-                {/* Botón Add to Favorites */}
                 <button
                     onClick={() => actions.addToFavorites({ ...entity, type })}
                     className={`btn btn-sm ${isFavorite ? "btn-secondary" : "btn-warning"}`}

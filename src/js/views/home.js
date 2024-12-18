@@ -13,7 +13,6 @@ function Home() {
 
     return (
         <div className="container mt-4">
-            {/* Characters */}
             <h2 className="mb-3">Characters</h2>
             <div className="scroll-container">
                 {store.characters.map((character) => (
@@ -21,7 +20,6 @@ function Home() {
                 ))}
             </div>
 
-            {/* Locations */}
             <h2 className="mb-3 mt-5">Locations</h2>
             <div className="scroll-container">
                 {store.locations.map((location) => (
@@ -29,7 +27,6 @@ function Home() {
                 ))}
             </div>
 
-            {/* Episodes */}
             <h2 className="mb-3 mt-5">Episodes</h2>
             <div className="scroll-container">
                 {store.episodes.map((episode) => (
