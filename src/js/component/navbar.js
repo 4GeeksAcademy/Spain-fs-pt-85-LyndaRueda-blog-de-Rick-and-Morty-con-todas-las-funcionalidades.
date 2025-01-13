@@ -9,6 +9,7 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
 
+    // Barra de buscar
     const handleSearch = (e) => {
         const query = e.target.value;
         setSearch(query);
@@ -23,19 +24,28 @@ const Navbar = () => {
         }
     };
 
+    // lo lleva a la info del personaje seleccionado
     const handleSelectCharacter = (id) => {
         navigate(`/characters/${id}`);
         setSearch("");
         setFilteredResults([]);
     };
 
+    // Ddropdown
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
+    };
+
+    // Detalle de un favorito de la lista de Ddropdown
+    const goToFavoriteDetail = (favorite) => {
+        navigate(`/${favorite.type}/${favorite.id}`);
+        setIsOpen(false);
     };
 
     return (
         <nav className="navbar navbar-dark bg-dark p-3">
             <div className="container d-flex justify-content-between align-items-center">
+                {/* Logo */}
                 <a className="navbar-brand" href="/">
                     <img
                         src="https://cdn-images.dzcdn.net/images/cover/38a217cfce1bfafa00bec80dcbc5d8cb/500x500.jpg"
@@ -45,6 +55,7 @@ const Navbar = () => {
                     />
                 </a>
 
+                {/* Barra de búsqueda */}
                 <div className="position-relative w-50">
                     <input
                         type="text"
@@ -66,18 +77,18 @@ const Navbar = () => {
                             {filteredResults.map((character) => (
                                 <li
                                     key={character.id}
-                                    className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                                    className="list-group-item list-group-item-action"
                                     onClick={() => handleSelectCharacter(character.id)}
                                     style={{ cursor: "pointer" }}
                                 >
                                     {character.name}
-                                    <span className="badge bg-primary rounded-pill">Details</span>
                                 </li>
                             ))}
                         </ul>
                     )}
                 </div>
 
+                {/* Dropdown de favoritos */}
                 <div className="dropdown ml-3">
                     <button
                         className="btn btn-warning dropdown-toggle"
@@ -93,14 +104,17 @@ const Navbar = () => {
                             className="dropdown-menu dropdown-menu-end show mt-2"
                             style={{ right: 0, left: "auto" }}
                         >
-
+                            {/* Verificar si hay favoritos o no */}
                             {store.favorites.length > 0 ? (
                                 store.favorites.map((item, index) => (
                                     <li
                                         key={index}
                                         className="dropdown-item d-flex justify-content-between align-items-center"
                                     >
-                                        <span className="text-truncate" style={{ maxWidth: "150px" }}>
+                                        <span
+                                            onClick={() => goToFavoriteDetail(item)}
+                                            style={{ cursor: "pointer", color: "blue" }}
+                                        >
                                             {item.name}
                                         </span>
                                         <button

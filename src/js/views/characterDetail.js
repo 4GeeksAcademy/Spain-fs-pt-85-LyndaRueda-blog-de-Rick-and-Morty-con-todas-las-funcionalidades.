@@ -1,56 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 const CharacterDetail = ({ type }) => {
     const { id } = useParams();
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    const getApiUrl = (type, id) => {
-        switch (type) {
-            case "characters":
-                return `https://rickandmortyapi.com/api/character/${id}`;
-            case "locations":
-                return `https://rickandmortyapi.com/api/location/${id}`;
-            case "episodes":
-                return `https://rickandmortyapi.com/api/episode/${id}`;
-            default:
-                throw new Error("Invalid type");
-        }
-    };
+    const { store, actions } = useContext(Context);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                setError(null);
-                const url = getApiUrl(type, id);
-                const response = await fetch(url);
-
-                if (!response.ok) {
-                    throw new Error(`Error ${response.status}: ${response.statusText}`);
-                }
-
-                const result = await response.json();
-                setData(result);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
+        actions.loadDetail(type, id); // Cargar de flux
     }, [id, type]);
+
+    const data = store.currentDetail;
 
     return (
         <div className="container mt-5">
-            {loading ? (
-                <p className="text-center">Loading...</p>
-            ) : error ? (
-                <p className="text-center text-danger">{error}</p>
-            ) : data ? (
+            {data ? (
                 <div className="text-center">
                     <h1 className="mb-3">{data.name}</h1>
                     {type === "characters" && (
@@ -83,7 +47,7 @@ const CharacterDetail = ({ type }) => {
                     )}
                 </div>
             ) : (
-                <p className="text-center">No data found.</p>
+                <p className="text-center">Loading...</p>
             )}
         </div>
     );
